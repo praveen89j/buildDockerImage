@@ -20,7 +20,7 @@ spec:
       containers:
       - name: nginx
 
-        image: YOUR_DOCKERHUB_USERNAME/nginx-demo:latest
+        image: nginx-demo:latest
 
         ports:
         - containerPort: 80
