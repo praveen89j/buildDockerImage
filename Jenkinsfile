@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/YOUR_USERNAME/nginx-docker.git'
+                url: 'https://github.com/praveen89j/buildDockerImage.git'
             }
         }
 
