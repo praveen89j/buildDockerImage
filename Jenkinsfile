@@ -4,7 +4,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = "nginx-demo"
-        CONTAINER_NAME = "nginx-container"
     }
 
     stages {
@@ -26,16 +25,18 @@ pipeline {
         }
 
 
-        stage('Deploy Container') {
+        stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                docker stop ${CONTAINER_NAME} || true
-                docker rm ${CONTAINER_NAME} || true
+                kubectl apply -f k8s/deployment.yaml
+                kubectl apply -f k8s/service.yaml
 
-                docker run -d \
-                --name ${CONTAINER_NAME} \
-                -p 4000:80 \
-                ${IMAGE_NAME}:latest
+                kubectl rollout restart deployment nginx-demo
+
+                kubectl rollout status deployment nginx-demo
+
+                kubectl get pods
+                kubectl get svc
                 '''
             }
         }
@@ -44,7 +45,8 @@ pipeline {
         stage('Verify') {
             steps {
                 sh '''
-                docker ps
+                kubectl get pods
+                kubectl get svc
                 '''
             }
         }
