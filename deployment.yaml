@@ -18,9 +18,8 @@ spec:
 
     spec:
       containers:
-      - name: nginx
-
-        image: nginx-demo:latest
-
+      - name: nginx-demo
+        image: gokuljpk/nginx-demo:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
